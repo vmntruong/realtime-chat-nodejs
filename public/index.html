@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>Super Chat temps réel</title>
+        <link type="text/css" rel="stylesheet" href="styles.css" />
+    </head>
+ 
+    <body>
+        <section id="conversation">
+            <div id="content">
+
+                <div id="box-header">
+                    <div id="user-box">
+                        
+                            <div id="user-photo"></div>
+                            <div id="user-name">
+                                <p id="username"></p>
+                                <p id="user-info"></p>
+                            </div>
+                        
+                        
+                    </div>
+                    <div id="welcome-box">
+                        <div id="welcome-message">Welcome !</div>
+                    </div>
+                </div>
+    
+                <div id="message-box">
+    
+                </div>
+    
+                <div id="input-message">
+                    <form action="/" method="POST" id="formulaire-chat" autocomplete="off">
+                        <input type="text" placeholder="Type your message here..." id="message-txt" />
+                        <input type="submit" value="Envoyer" id="submit-btn" />
+                    </form>
+                </div>
+                    
+            </div>
+        </section>
+
+
+        <section id="pseudo-input">
+
+        </section>
+        
+
+        <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+        <script src="/socket.io/socket.io.js"></script>
+        <script src="client.js"></script>
+        <script>
+            var socket = io.connect('http://localhost:8080');
+            do {
+                var pseudo = prompt("Votre pseudo: ");
+            }
+            while (pseudo=='');
+            
+            socket.emit('petit_nouveau', pseudo);
+            
+            socket.on('message', function(message) {
+                alert('Serveur: ' + message);
+            });
+            // change page title
+            document.title = pseudo + " - " + document.title;
+            $("#username").html(pseudo);
+
+            // receive the recent chat
+            socket.on('recent-msg', function(message) {
+                console.log(message);
+                for (msg of message) {
+                    $("#message-box").prepend('<p><span class=user>' + msg.pseudo + '</span>' + msg.message + '</p>');
+                }
+                updateScroll();
+            });
+            //
+            
+
+            $("#formulaire-chat").submit(function() {
+                let msg = $("#message-txt").val()
+                if ( msg == '' ) { alert("Empty message !"); }
+                else {
+                    socket.emit('message', msg);
+                    $("#message-txt").val("").focus();
+                    $("#message-box").append('<p><span class=user>' + pseudo + '</span>' + msg + '</p>');
+                    
+                    setInterval(updateScroll,100);scrolled = false;
+                }
+                return false;
+            });
+
+            socket.on('online-msg', function(message) {
+                $("#message-box").append('<p><span class=user>' + message[0] + '</span>' + message[1] + '</p>');
+            });
+            
+            socket.on('disconnect-msg', function(message) {
+                $("#message-box").append('<p>' + message + '</p>');
+            });
+        </script>
+    </body>
+</html>

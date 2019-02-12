@@ -1,0 +1,129 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+html, body, head {
+    height: 100%;
+}
+body {
+    font: 13px Helvetica, Arial;
+    transition: all 0.5;
+}
+section#conversation {
+    height: 100%;
+
+}
+section#conversation #content {
+    margin: auto;
+    padding: 0;
+    width: 500px;
+    height: 100%;
+    border: 1px solid blue;
+}
+#box-header {
+    height: 13%;
+    padding: 0;
+    background: #00CEF5;
+}
+#box-header #user-box {
+    width: 50%;
+    height: 100%;
+    padding: 10px 10px;
+    float: left;
+}
+#user-photo {
+    width: 65px;
+    height: 65px;
+    
+    float: left;
+    background: #36bed4;
+    background-image: url("avatar_man.jpg");
+    border-radius: 50%;
+}
+#user-name {
+    width: 60%;
+    height: 100%;
+    padding: 0 10px;
+    float: left;
+}
+#username {
+    height: 50%;
+    padding: 5px 0;
+    color: white;
+    font-size: 1.3em;
+}
+#user-info {
+    color: grey;
+}
+#box-header #welcome-box {
+    width: 50%;
+    height: 100%;
+    padding: 10px 10px;
+    display: inline-block;
+}
+#welcome-message {
+    position: relative;
+    width: 100%;
+    padding: 13px 23px;
+    text-align: center;
+    color: white;
+    font-weight: bold;
+    font-size: 200%;
+	background:#ff8040;
+    border-radius: .4em;
+    text-shadow: 0 -0.05em 0.1em rgba(0,0,0,.3);
+}
+#welcome-message:after {
+	content: '';
+	position: absolute;
+	bottom: 0;
+    left: 36%;
+	width: 0;
+	height: 0;
+	border: 20px solid transparent;
+	border-top-color: #ff8040;
+	border-bottom: 0;
+	border-left: 0;
+	margin-bottom: -11px;
+}
+
+
+#message-box {
+    height: 79%;
+    padding: 20px;
+    overflow-y: scroll;
+}
+#message-box p {
+    margin: 25px 0;
+    color: black;
+}
+span.user {
+    font-weight: bold;
+    background: #00CEF5;
+    border-radius: 15%;
+    margin-right: 15px;
+    padding: 8px;
+    color: black;
+}
+
+#input-message {
+    height: 8%;
+    padding: 0;
+    background: #00CEF5;
+}
+#formulaire-chat {
+    width: 100%;
+    height: 100%;
+}
+#input-message #message-txt {
+    width: 80%;
+    height: 100%;
+    float: left;
+    font-size: 150%;
+}
+#input-message #submit-btn {
+    width: 20%;
+    height: 100%;
+    float: left;
+}
